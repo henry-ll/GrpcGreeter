@@ -1,4 +1,7 @@
 using GrpcGreeter.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
-app.MapGet("/", () => "不允许直接访问，请使用Gprc客户端通信");
+app.MapGrpcService<GrpcStreamService>();
+app.MapGet("/", () => "禁止访问，请使用Gprc客户端通信");
 
 app.Run();
